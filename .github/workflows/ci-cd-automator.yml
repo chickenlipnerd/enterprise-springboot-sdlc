@@ -1,0 +1,21 @@
+name: CI/CD Automator
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: docker build -t enterprise-app:latest .
+
+      - name: Deploy to OpenShift
+        run: |
+          oc login --token ${{ secrets.OPENSHIFT_TOKEN }} --server ${{ secrets.OPENSHIFT_SERVER }}
+          oc apply -f k8s/deployment.yml
