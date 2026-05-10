@@ -2,6 +2,11 @@
 
 This repository is now a Maven multi-module monorepo aligned to a Java 21 and Spring Boot 4 service strategy for OpenShift-oriented delivery.
 
+## New to this repository?
+- Start with `docs/guides/newcomer-cliff-notes.md` for a component-by-component teaching guide, SDLC mapping, and VS Code-only setup path.
+- Use `docs/vscode-workflow.md` for day-to-day IDE workflow details.
+- Review `platform/README.md` before using local infra so placeholder credentials and production-safe expectations are clear.
+
 ## Monorepo strategy
 - **Java 21** across all build modules and service runtimes.
 - **Spring Boot 4** for service modules under `services/`.
@@ -18,6 +23,7 @@ This repository is now a Maven multi-module monorepo aligned to a Java 21 and Sp
 │   └── parent/                # plugin management, Java 21 defaults, publishing profiles
 ├── docs/
 │   ├── architecture/          # Draw.io architecture diagram and notes
+│   ├── guides/                # newcomer and onboarding guides
 │   └── vscode-workflow.md     # VS Code-first backend and future frontend workflow
 ├── platform/
 │   ├── docker-compose.local-infra.yml
@@ -105,6 +111,7 @@ You will still need environment-specific secrets, namespaces, manifests, and ima
 This repository assumes VS Code as the primary IDE for backend work now and for future frontend work later.
 
 Recommended extensions and workflow notes are in:
+- `docs/guides/newcomer-cliff-notes.md`
 - `docs/vscode-workflow.md`
 - `.vscode/extensions.json`
 - `.vscode/settings.json`

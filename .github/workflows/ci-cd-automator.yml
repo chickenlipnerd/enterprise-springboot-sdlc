@@ -53,4 +53,4 @@ jobs:
 
       - name: Explain missing secrets
         if: ${{ secrets.OPENSHIFT_SERVER == '' || secrets.OPENSHIFT_TOKEN == '' }}
-        run: echo "OpenShift secrets are not configured yet. Workflow remains as a deployment skeleton."
+        run: echo "OpenShift secrets are not configured. This workflow is intentionally a safe deployment skeleton until real environment manifests, namespaces, and credentials are provided."

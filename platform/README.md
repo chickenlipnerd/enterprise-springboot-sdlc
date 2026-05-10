@@ -6,6 +6,8 @@ This directory contains non-code assets for local platform support and deploymen
 - `docker-compose.local-infra.yml`: optional local infrastructure for PostgreSQL, Nexus, and Verdaccio.
 - `openshift/service-template.yaml`: placeholder OpenShift template aligned to the service modules in `services/`.
 
+> Safety note: this directory is for local scaffolding and deployment placeholders. Do not treat example credentials, URLs, or templates here as production-ready.
+
 ## Local artifact testing
 1. Start optional infrastructure:
    ```bash
