@@ -1,21 +1,56 @@
-name: CI/CD Automator
+name: openshift-deploy-skeleton
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      service:
+        description: Service module to deploy
+        required: true
+        default: user-service
+        type: choice
+        options:
+          - user-service
+          - catalog-service
+      environment:
+        description: OpenShift target environment
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
+
+permissions:
+  contents: read
 
 jobs:
-  build-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Build Docker Image
-        run: docker build -t enterprise-app:latest .
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
 
-      - name: Deploy to OpenShift
+      - name: Build selected service image artifact
+        run: ./mvnw -B -ntp -pl services/${{ inputs.service }} -am -DskipTests package
+
+      - name: Log in to OpenShift
+        if: ${{ secrets.OPENSHIFT_SERVER != '' && secrets.OPENSHIFT_TOKEN != '' }}
+        run: oc login --token="${{ secrets.OPENSHIFT_TOKEN }}" --server="${{ secrets.OPENSHIFT_SERVER }}"
+
+      - name: Apply OpenShift template placeholder
+        if: ${{ secrets.OPENSHIFT_SERVER != '' && secrets.OPENSHIFT_TOKEN != '' }}
         run: |
-          oc login --token ${{ secrets.OPENSHIFT_TOKEN }} --server ${{ secrets.OPENSHIFT_SERVER }}
-          oc apply -f k8s/deployment.yml
+          sed "s|SERVICE_NAME|${{ inputs.service }}|g" platform/openshift/service-template.yaml > /tmp/service-template.yaml
+          oc apply -f /tmp/service-template.yaml -n "${{ vars.OPENSHIFT_NAMESPACE || 'enterprise-sdlc' }}"
+
+      - name: Explain missing secrets
+        if: ${{ secrets.OPENSHIFT_SERVER == '' || secrets.OPENSHIFT_TOKEN == '' }}
+        run: echo "OpenShift secrets are not configured yet. Workflow remains as a deployment skeleton."

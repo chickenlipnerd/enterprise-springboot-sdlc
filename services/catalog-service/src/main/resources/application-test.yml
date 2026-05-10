@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: ${CATALOG_SERVICE_DB_URL:jdbc:postgresql://localhost:5432/catalog_service_test}
+    username: ${CATALOG_SERVICE_DB_USERNAME:catalog_service_test}
+    password: ${CATALOG_SERVICE_DB_PASSWORD:catalog_service_test}
+  jpa:
+    hibernate:
+      ddl-auto: update
+app:
+  testcontainers:
+    postgres-enabled: true

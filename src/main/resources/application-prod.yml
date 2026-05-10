@@ -1,6 +1,0 @@
-# Production Environment Configuration
-spring:
-  datasource:
-    url: jdbc:postgresql://prod-db-url:5432/proddb
-    username: produser
-    password: prodpass

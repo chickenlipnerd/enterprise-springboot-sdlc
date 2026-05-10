@@ -1,0 +1,8 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: ${USER_SERVICE_DB_URL:jdbc:postgresql://dev-postgres:5432/user_service_dev}
+    username: ${USER_SERVICE_DB_USERNAME:user_service_dev}
+    password: ${USER_SERVICE_DB_PASSWORD:change-me}

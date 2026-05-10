@@ -1,0 +1,8 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: ${USER_SERVICE_DB_URL:jdbc:postgresql://localhost:5432/user_service_local}
+    username: ${USER_SERVICE_DB_USERNAME:user_service}
+    password: ${USER_SERVICE_DB_PASSWORD:user_service}

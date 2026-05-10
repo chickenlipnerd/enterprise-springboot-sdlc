@@ -1,0 +1,8 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: ${CATALOG_SERVICE_DB_URL:jdbc:postgresql://dev-postgres:5432/catalog_service_dev}
+    username: ${CATALOG_SERVICE_DB_USERNAME:catalog_service_dev}
+    password: ${CATALOG_SERVICE_DB_PASSWORD:change-me}

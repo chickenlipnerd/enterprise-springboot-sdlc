@@ -1,0 +1,8 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: ${CATALOG_SERVICE_DB_URL:jdbc:postgresql://localhost:5432/catalog_service_local}
+    username: ${CATALOG_SERVICE_DB_USERNAME:catalog_service}
+    password: ${CATALOG_SERVICE_DB_PASSWORD:catalog_service}

@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: ${USER_SERVICE_DB_URL:jdbc:postgresql://localhost:5432/user_service_test}
+    username: ${USER_SERVICE_DB_USERNAME:user_service_test}
+    password: ${USER_SERVICE_DB_PASSWORD:user_service_test}
+  jpa:
+    hibernate:
+      ddl-auto: update
+app:
+  testcontainers:
+    postgres-enabled: true
