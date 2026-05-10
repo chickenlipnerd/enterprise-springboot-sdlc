@@ -26,16 +26,16 @@ Today, the tracked files are still closer to a **starter foundation** than a fin
 
 | Path / component | What it is | Why it exists | When to modify it | SDLC fit | VS Code workflow |
 | --- | --- | --- | --- | --- | --- |
-| `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/README.md` | Main entry point for the repo | Gives a quick overview and basic setup instructions | Update it when the repo structure, setup steps, or major workflows change | Planning, onboarding, maintenance | Keep it open beside the Explorer and terminal while you work |
-| `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/docs/guides/newcomer-cliff-notes.md` | This teaching/onboarding guide | Gives newcomers a practical map of the repo and workflow | Update it when modules, tooling, or local setup guidance changes | Planning, onboarding, maintenance | Open in the Markdown preview so links and tables are easy to review |
-| `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/pom.xml` | Root Maven build file | Defines Java/Spring dependencies and build behavior | Modify it when dependencies, plugins, Java version, or module structure changes | Coding, testing, build | Use the Maven view and integrated terminal to run goals like `mvn test` or `mvn verify` |
-| `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/Dockerfile` | Container image recipe | Packages the Spring Boot app for container-based deployment | Change it when runtime base image, build output, ports, or container hardening changes | Build, artifact packaging, deployment | Use the Docker extension to build or inspect the image from VS Code |
-| `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/.github/workflows/ci.yml` | Main GitHub Actions CI workflow | Documents the repository's intended automated build/test path | Update it when build/test commands or branch strategy changes | Testing, build, maintenance | YAML extension helps with validation and schema hints |
-| `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/.github/workflows/ci-cd-automator.yml` | Placeholder deployment workflow | Reserves space for future deployment automation without forcing secrets or manifests today | Modify it only when real deployment prerequisites exist | Deployment, release safety | Treat it as a placeholder until manifests, registry steps, and environment secrets are ready |
-| `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/src/main/resources/application-prod.yml` | Production profile configuration file | Holds production-only Spring datasource settings | Modify it when production configuration keys change; do **not** commit real credentials | Deployment, operations, maintenance | YAML editing plus environment-variable awareness is more important than running it locally |
-| `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/src/main/java/com/example/util/.gitempty` | Placeholder to keep the `util` package visible in Git | Keeps an empty source directory around while code is still being added | Replace or remove it when real Java classes land in that package | Coding, maintenance | You can ignore it during day-to-day work unless you are adding real utility code |
-| `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/AI-PROMPT.md` | Prompt/reference notes for AI-assisted continuation | Captures ideas for future work and GitHub/Copilot interactions | Update it when the team's preferred AI prompts or workflow patterns change | Planning, maintenance | Useful as a side reference, not a build input |
-| `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/AI-CONTINUED.md` | Conversation carry-over placeholder | Preserves continuity/context from prior AI work | Modify only if you intentionally want to keep or replace that context | Planning, maintenance | Treat it as context, not application code |
+| `README.md` | Main entry point for the repo | Gives a quick overview and basic setup instructions | Update it when the repo structure, setup steps, or major workflows change | Planning, onboarding, maintenance | Keep it open beside the Explorer and terminal while you work |
+| `docs/guides/newcomer-cliff-notes.md` | This teaching/onboarding guide | Gives newcomers a practical map of the repo and workflow | Update it when modules, tooling, or local setup guidance changes | Planning, onboarding, maintenance | Open in the Markdown preview so links and tables are easy to review |
+| `pom.xml` | Root Maven build file | Defines Java/Spring dependencies and build behavior | Modify it when dependencies, plugins, Java version, or module structure changes | Coding, testing, build | Use the Maven view and integrated terminal to run goals like `mvn test` or `mvn verify` |
+| `Dockerfile` | Container image recipe | Packages the Spring Boot app for container-based deployment | Change it when runtime base image, build output, ports, or container hardening changes | Build, artifact packaging, deployment | Use the Docker extension to build or inspect the image from VS Code |
+| `.github/workflows/ci.yml` | Main GitHub Actions CI workflow | Documents the repository's intended automated build/test path | Update it when build/test commands or branch strategy changes | Testing, build, maintenance | YAML extension helps with validation and schema hints |
+| `.github/workflows/ci-cd-automator.yml` | Placeholder deployment workflow | Reserves space for future deployment automation without forcing secrets or manifests today | Modify it only when real deployment prerequisites exist | Deployment, release safety | Treat it as a placeholder until manifests, registry steps, and environment secrets are ready |
+| `src/main/resources/application-prod.yml` | Production profile configuration file | Holds production-only Spring datasource settings | Modify it when production configuration keys change; do **not** commit real credentials | Deployment, operations, maintenance | YAML editing plus environment-variable awareness is more important than running it locally |
+| `src/main/java/com/example/util/.gitempty` | Placeholder to keep the `util` package visible in Git | Keeps an empty source directory around while code is still being added | Replace or remove it when real Java classes land in that package | Coding, maintenance | You can ignore it during day-to-day work unless you are adding real utility code |
+| `AI-PROMPT.md` | Prompt/reference notes for AI-assisted continuation | Captures ideas for future work and GitHub/Copilot interactions | Update it when the team's preferred AI prompts or workflow patterns change | Planning, maintenance | Useful as a side reference, not a build input |
+| `AI-CONTINUED.md` | Conversation carry-over placeholder | Preserves continuity/context from prior AI work | Modify only if you intentionally want to keep or replace that context | Planning, maintenance | Treat it as context, not application code |
 
 ## 3. Planned monorepo direction to expect later
 
@@ -93,7 +93,7 @@ Install these first:
 
 ### Open the repo in VS Code
 
-1. Open `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc`.
+1. Open the repository root in VS Code.
 2. Use the integrated terminal for all commands so paths stay consistent with the open workspace.
 3. Keep the Explorer, Maven, Java Projects, Docker, and Source Control views pinned.
 
@@ -224,9 +224,9 @@ If the restructuring continues, the next most useful docs would be:
 
 ## 9. Related files
 
-- `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/README.md`
-- `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/pom.xml`
-- `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/Dockerfile`
-- `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/.github/workflows/ci.yml`
-- `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/.github/workflows/ci-cd-automator.yml`
-- `/home/runner/work/enterprise-springboot-sdlc/enterprise-springboot-sdlc/src/main/resources/application-prod.yml`
+- `README.md`
+- `pom.xml`
+- `Dockerfile`
+- `.github/workflows/ci.yml`
+- `.github/workflows/ci-cd-automator.yml`
+- `src/main/resources/application-prod.yml`
