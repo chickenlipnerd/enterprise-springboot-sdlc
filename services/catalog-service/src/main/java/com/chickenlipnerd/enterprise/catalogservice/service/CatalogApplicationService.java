@@ -43,7 +43,7 @@ public class CatalogApplicationService {
         return listItems().stream()
             .filter(item -> item.sku().equalsIgnoreCase(validatedSku))
             .findFirst()
-            .orElse(new CatalogItemSummary(validatedSku, "Not yet seeded", BigDecimal.ZERO, false));
+            .orElse(new CatalogItemSummary(validatedSku, "Item not found", BigDecimal.ZERO, false));
     }
 
     private CatalogItemSummary toSummary(CatalogItem item) {

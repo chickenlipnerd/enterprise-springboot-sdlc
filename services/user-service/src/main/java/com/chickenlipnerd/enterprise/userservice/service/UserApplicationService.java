@@ -42,7 +42,7 @@ public class UserApplicationService {
         return listUsers().stream()
             .filter(user -> user.username().equalsIgnoreCase(validatedUsername))
             .findFirst()
-            .orElse(new UserSummary(validatedUsername, validatedUsername + "@example.com", "NOT_FOUND_TEMPLATE"));
+            .orElse(new UserSummary(validatedUsername, validatedUsername + "@example.com", "NOT_FOUND"));
     }
 
     private UserSummary toSummary(User user) {
