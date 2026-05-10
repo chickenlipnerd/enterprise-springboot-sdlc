@@ -2,6 +2,8 @@
 
 Use prompts that match the Maven monorepo layout, Spring Boot 4 services, and VS Code-first workflow.
 
+For newcomer-oriented tasks, align answers with `docs/guides/newcomer-cliff-notes.md` so generated guidance stays consistent with this monorepo.
+
 ## Build and architecture prompts
 - "Add a new shared library under `shared-libs/` and wire it into `build/bom` and `build/parent`."
 - "Create a new Spring Boot 4 service under `services/` using Java 21 and the existing monorepo conventions."
