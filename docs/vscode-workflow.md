@@ -15,7 +15,7 @@ This repository assumes a VS Code-first workflow for both backend work today and
 ## Backend workflow
 1. Install JDK 21 and let VS Code import the Maven monorepo.
 2. Use the Java Projects view or Maven view to run module-specific goals such as `verify`.
-3. Use the Spring Boot dashboard or run `./mvnw -f services/<service-name>/pom.xml spring-boot:run -Dspring-boot.run.profiles=local` from the integrated terminal.
+3. Use the Spring Boot dashboard to launch `user-service` or `catalog-service` with the `local` profile, or package from the repository root and run the executable jar from the integrated terminal.
 4. Connect to PostgreSQL with the VS Code PostgreSQL extension using the URLs documented in each service's `application-local.yml`.
 
 ## Future frontend workflow

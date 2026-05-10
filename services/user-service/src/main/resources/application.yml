@@ -10,15 +10,19 @@ spring:
     password: ${USER_SERVICE_DB_PASSWORD:user_service}
     hikari:
       initialization-fail-timeout: -1
+      connection-timeout: 500
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         boot.allow_jdbc_metadata_access: false
 management:
+  health:
+    db:
+      enabled: false
   endpoints:
     web:
       exposure:

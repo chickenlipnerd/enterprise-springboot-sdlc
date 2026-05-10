@@ -74,16 +74,14 @@ Each service includes:
 
 ### Run a service from VS Code or terminal
 ```bash
-./mvnw -f services/user-service/pom.xml spring-boot:run -Dspring-boot.run.profiles=local
-./mvnw -f services/catalog-service/pom.xml spring-boot:run -Dspring-boot.run.profiles=local
-```
-
-Or package an executable jar and run it directly:
-
-```bash
 ./mvnw -pl services/user-service -am package
 java -jar services/user-service/target/user-service-0.1.0-SNAPSHOT.jar --spring.profiles.active=local
+
+./mvnw -pl services/catalog-service -am package
+java -jar services/catalog-service/target/catalog-service-0.1.0-SNAPSHOT.jar --spring.profiles.active=local
 ```
+
+In VS Code, prefer the Spring Boot dashboard for launch/debug because it works at the workspace level without requiring every sibling module to be pre-installed in the local Maven repository.
 
 ## PostgreSQL direction
 Both services are scaffolded for PostgreSQL and keep profile-specific configuration files for local, dev, test, and prod environments. The test profile is intentionally ready for a future Testcontainers-backed integration test layer while the `shared-libs/test-support` module provides a reusable PostgreSQL container factory.
