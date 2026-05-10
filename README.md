@@ -3,34 +3,32 @@
 ## Overview
 This repository contains an enterprise-grade Spring Boot application structured to support a full software development lifecycle (SDLC). It includes modular design, environment-specific configurations, and CI/CD workflows.
 
+> New here? Start with the onboarding guide: [`docs/guides/newcomer-cliff-notes.md`](docs/guides/newcomer-cliff-notes.md)
+
+> Current-state note: this repository snapshot is still a lightweight foundation. The new onboarding guide clearly separates **what exists today** from the **planned monorepo direction** so newcomers do not mistake placeholders for completed modules.
+
 ## Features
-- **Modular architecture** following best practices.
-- Support for multiple environments: `local`, `dev`, `test`, `prod`.
+- **Starter foundation** for an enterprise-style Spring Boot SDLC repository.
+- Monorepo/onboarding guidance for planned backend, platform, and future frontend growth.
 - CI/CD pipeline using **GitHub Actions**.
-- Docker containerization and OpenShift deployment-ready.
-- Testcontainers-based integration tests.
+- Docker containerization support via the tracked `Dockerfile`.
+- Placeholder production and deployment configuration kept explicit and safe.
 
 ## Project Structure
 ```
-enterprise-sdlc/
-├── src/main/java/com/example/
-│   ├── config/            # Central configuration files
-│   ├── controller/        # REST controllers (API layer)
-│   ├── dto/               # Data transfer objects
-│   ├── exception/         # Global exception handlers
-│   ├── model/             # Hibernate entities (Domain models)
-│   ├── repository/        # Data repositories layer
-│   ├── service/           # Service layer (Business logic)
-│   ├── util/              # Utility classes
-├── src/main/resources/
-│   ├── application.yml          # Base configuration
-│   ├── application-local.yml    # Local environment overrides
-│   ├── application-dev.yml      # Development environment overrides
-│   ├── application-test.yml     # Testing environment overrides
-│   ├── application-prod.yml     # Production environment overrides
-├── Dockerfile                 # Docker container setup
-├── .github/workflows/ci.yml   # CI/CD workflow for GitHub Actions
-└── pom.xml                    # Maven configuration
+enterprise-springboot-sdlc/
+├── .github/workflows/ci.yml                 # Main CI workflow
+├── .github/workflows/ci-cd-automator.yml   # Manual placeholder for future deployment automation
+├── docs/guides/newcomer-cliff-notes.md      # Beginner-friendly repo and VS Code guide
+├── Dockerfile                               # Container image recipe
+├── pom.xml                                  # Root Maven configuration
+├── README.md                                # Repository overview
+├── AI-PROMPT.md                             # AI continuation prompts/reference notes
+├── AI-CONTINUED.md                          # Placeholder conversation carry-over file
+└── src/
+    └── main/
+        ├── java/com/example/util/.gitempty  # Placeholder to retain package path
+        └── resources/application-prod.yml   # Production datasource settings via env vars
 ```
 
 ---
@@ -43,20 +41,15 @@ enterprise-sdlc/
   git clone https://github.com/chickenlipnerd/enterprise-springboot-sdlc.git
   cd enterprise-springboot-sdlc
   ```
-- Ensure Java 17+ and Maven are installed locally.
-- Run the application locally:
-  ```bash
-  mvn spring-boot:run
-  ```
-- The application will run with the `local` profile by default.
+- Ensure Java and Maven are installed locally. The newcomer guide recommends Java 21 as a workstation baseline, while the current root build metadata still reflects an earlier Java/Spring setup.
+- If you are using VS Code only, see the extension and workspace setup notes in [`docs/guides/newcomer-cliff-notes.md`](docs/guides/newcomer-cliff-notes.md).
+- Current-state note: this branch snapshot is still scaffolding-heavy. Review the onboarding guide and root `pom.xml` before assuming the project is ready for full local run/debug commands.
 
 ### 2. Profiles (Environment-Specific Setup)
-- **Local**: Uses `application-local.yml`. Runs a local PostgreSQL database.
-- **Development**: Targets shared dev database (`application-dev.yml`).
-- **Testing**: Uses Testcontainers to spin up ephemeral PostgreSQL instances (`application-test.yml`).
-- **Production**: Targets production systems with strict DB validation.
+- **Production**: `src/main/resources/application-prod.yml` exists and now expects datasource values from environment variables.
+- **Local / Development / Testing**: referenced as intended environment concepts in the documentation, but not yet tracked as concrete config files in this branch snapshot.
 
-Set the active profile via `spring.profiles.active` (e.g.,):
+When more profile files are added, set the active profile via `spring.profiles.active` (for example):
 ```bash
 java -Dspring.profiles.active=dev -jar target/app.jar
 ```
@@ -65,6 +58,7 @@ java -Dspring.profiles.active=dev -jar target/app.jar
 - GitHub Actions workflow (`.github/workflows/ci.yml`) automates:
   - Build and test the project.
 - Triggered on every `push` or `pull_request` to `main`.
+- The OpenShift deployment workflow is intentionally kept as a placeholder until real manifests, secrets, and artifact publishing are in place.
 
 ### 4. Docker Setup
 - Build the Docker image:
@@ -75,4 +69,8 @@ java -Dspring.profiles.active=dev -jar target/app.jar
   ```bash
   docker run -p 8080:8080 enterprise-springboot-sdlc
   ```
-- Ready for OpenShift deployment.
+- Use the image as a packaging baseline; real OpenShift deployment remains placeholder work until manifests and publishing steps are added.
+
+## Additional Documentation
+
+- [`docs/guides/newcomer-cliff-notes.md`](docs/guides/newcomer-cliff-notes.md) - beginner-friendly repo map, VS Code setup, SDLC lifecycle guide, and safety notes

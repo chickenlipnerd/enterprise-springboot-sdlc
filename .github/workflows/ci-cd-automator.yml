@@ -1,21 +1,15 @@
-name: CI/CD Automator
+name: OpenShift Deploy Placeholder
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  build-deploy:
+  placeholder:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Build Docker Image
-        run: docker build -t enterprise-app:latest .
-
-      - name: Deploy to OpenShift
+      - name: Explain placeholder status
         run: |
-          oc login --token ${{ secrets.OPENSHIFT_TOKEN }} --server ${{ secrets.OPENSHIFT_SERVER }}
-          oc apply -f k8s/deployment.yml
+          echo "This workflow is intentionally manual."
+          echo "It is a safe placeholder for future OpenShift/CD automation."
+          echo "Before enabling real deployment, add manifests, registry publishing, and environment secrets."
