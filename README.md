@@ -1,78 +1,113 @@
-# Enterprise Spring Boot SDLC Project
+# Enterprise Spring Boot SDLC Monorepo
 
-## Overview
-This repository contains an enterprise-grade Spring Boot application structured to support a full software development lifecycle (SDLC). It includes modular design, environment-specific configurations, and CI/CD workflows.
+This repository is now a Maven multi-module monorepo aligned to a Java 21 and Spring Boot 4 service strategy for OpenShift-oriented delivery.
 
-## Features
-- **Modular architecture** following best practices.
-- Support for multiple environments: `local`, `dev`, `test`, `prod`.
-- CI/CD pipeline using **GitHub Actions**.
-- Docker containerization and OpenShift deployment-ready.
-- Testcontainers-based integration tests.
+## Monorepo strategy
+- **Java 21** across all build modules and service runtimes.
+- **Spring Boot 4** for service modules under `services/`.
+- **Framework-light shared libraries** under `shared-libs/` so reusable code is not tightly coupled to a single Spring Boot generation when that can be avoided.
+- **Centralized build governance** through `build/bom` and `build/parent`.
+- **OpenShift-oriented deployment** with local Docker and artifact repository scaffolding.
+- **VS Code-only workflow** documented for current backend work and future frontend work.
 
-## Project Structure
+## Repository layout
+```text
+.
+├── build/
+│   ├── bom/                   # dependency management import layer
+│   └── parent/                # plugin management, Java 21 defaults, publishing profiles
+├── docs/
+│   ├── architecture/          # Draw.io architecture diagram and notes
+│   └── vscode-workflow.md     # VS Code-first backend and future frontend workflow
+├── platform/
+│   ├── docker-compose.local-infra.yml
+│   ├── openshift/
+│   └── README.md
+├── shared-libs/
+│   ├── logging-lib/
+│   ├── persistence-lib/
+│   ├── test-support/
+│   └── validation-lib/
+├── services/
+│   ├── catalog-service/
+│   └── user-service/
+├── .github/workflows/
+├── AI-CONTINUED.md
+├── AI-PROMPT.md
+├── mvnw / mvnw.cmd / .mvn/
+└── pom.xml
 ```
-enterprise-sdlc/
-├── src/main/java/com/example/
-│   ├── config/            # Central configuration files
-│   ├── controller/        # REST controllers (API layer)
-│   ├── dto/               # Data transfer objects
-│   ├── exception/         # Global exception handlers
-│   ├── model/             # Hibernate entities (Domain models)
-│   ├── repository/        # Data repositories layer
-│   ├── service/           # Service layer (Business logic)
-│   ├── util/              # Utility classes
-├── src/main/resources/
-│   ├── application.yml          # Base configuration
-│   ├── application-local.yml    # Local environment overrides
-│   ├── application-dev.yml      # Development environment overrides
-│   ├── application-test.yml     # Testing environment overrides
-│   ├── application-prod.yml     # Production environment overrides
-├── Dockerfile                 # Docker container setup
-├── .github/workflows/ci.yml   # CI/CD workflow for GitHub Actions
-└── pom.xml                    # Maven configuration
-```
 
----
+## Initial modules
+### Build modules
+- `build/bom`: imports Spring Boot 4 and Testcontainers BOMs plus internal module coordinates.
+- `build/parent`: Java 21 defaults, plugin management, enforcer rules, and artifact publishing profiles.
 
-## Usage
+### Shared libraries
+- `shared-libs/logging-lib`: tiny SLF4J-based structured logging helper.
+- `shared-libs/validation-lib`: lightweight validation helpers and error record.
+- `shared-libs/persistence-lib`: simple persistence abstractions such as `BaseEntity` and paging helpers.
+- `shared-libs/test-support`: reusable PostgreSQL Testcontainers support.
 
-### 1. Local Setup
-- Clone the repository:
-  ```bash
-  git clone https://github.com/chickenlipnerd/enterprise-springboot-sdlc.git
-  cd enterprise-springboot-sdlc
-  ```
-- Ensure Java 17+ and Maven are installed locally.
-- Run the application locally:
-  ```bash
-  mvn spring-boot:run
-  ```
-- The application will run with the `local` profile by default.
+### Service modules
+- `services/user-service`: Spring Boot 4 REST skeleton, actuator, PostgreSQL placeholders, sample user endpoint.
+- `services/catalog-service`: Spring Boot 4 REST skeleton, actuator, PostgreSQL placeholders, sample catalog endpoint.
 
-### 2. Profiles (Environment-Specific Setup)
-- **Local**: Uses `application-local.yml`. Runs a local PostgreSQL database.
-- **Development**: Targets shared dev database (`application-dev.yml`).
-- **Testing**: Uses Testcontainers to spin up ephemeral PostgreSQL instances (`application-test.yml`).
-- **Production**: Targets production systems with strict DB validation.
+Each service includes:
+- `controller/`, `service/`, `repository/`, `model/`, and `config/` packages
+- `application.yml`
+- `application-local.yml`
+- `application-dev.yml`
+- `application-test.yml`
+- `application-prod.yml`
+- service-specific Dockerfile
 
-Set the active profile via `spring.profiles.active` (e.g.,):
+## Build and run
+### Prerequisites
+- JDK 21
+- Docker (optional for local infra)
+
+### Verify the monorepo
 ```bash
-java -Dspring.profiles.active=dev -jar target/app.jar
+./mvnw -B verify
 ```
 
-### 3. CI/CD Pipeline
-- GitHub Actions workflow (`.github/workflows/ci.yml`) automates:
-  - Build and test the project.
-- Triggered on every `push` or `pull_request` to `main`.
+### Run a service from VS Code or terminal
+```bash
+./mvnw -pl services/user-service -am package
+java -jar services/user-service/target/user-service-0.1.0-SNAPSHOT.jar --spring.profiles.active=local
 
-### 4. Docker Setup
-- Build the Docker image:
-  ```bash
-  docker build -t enterprise-springboot-sdlc .
-  ```
-- Run the container:
-  ```bash
-  docker run -p 8080:8080 enterprise-springboot-sdlc
-  ```
-- Ready for OpenShift deployment.
+./mvnw -pl services/catalog-service -am package
+java -jar services/catalog-service/target/catalog-service-0.1.0-SNAPSHOT.jar --spring.profiles.active=local
+```
+
+In VS Code, prefer the Spring Boot dashboard for launch/debug because it works at the workspace level without requiring every sibling module to be pre-installed in the local Maven repository.
+
+## PostgreSQL direction
+Both services are scaffolded for PostgreSQL and keep profile-specific configuration files for local, dev, test, and prod environments. The test profile is intentionally ready for a future Testcontainers-backed integration test layer while the `shared-libs/test-support` module provides a reusable PostgreSQL container factory.
+
+## Artifact strategy
+- **Primary:** Nexus for enterprise Maven publishing.
+- **Alternative:** GitHub Packages for Maven artifacts.
+- **Future frontend support:** Verdaccio for local npm package testing.
+
+See `platform/README.md` and `.github/workflows/publish-artifacts.yml` for the publishing skeleton.
+
+## OpenShift orientation
+The repository includes:
+- an OpenShift deployment workflow skeleton
+- a placeholder service deployment template under `platform/openshift/`
+- Docker build workflows for service modules
+
+You will still need environment-specific secrets, namespaces, manifests, and image promotion rules before real deployment.
+
+## VS Code-first development
+This repository assumes VS Code as the primary IDE for backend work now and for future frontend work later.
+
+Recommended extensions and workflow notes are in:
+- `docs/vscode-workflow.md`
+- `.vscode/extensions.json`
+- `.vscode/settings.json`
+
+## Future client integration
+A future React or Next.js client may live in a separate repository and consume these services over HTTP while optionally using Verdaccio locally for package experimentation.

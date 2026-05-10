@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: enterprise
+      POSTGRES_USER: enterprise
+      POSTGRES_PASSWORD: enterprise
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  nexus:
+    image: sonatype/nexus3:3.78.1
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus-data:/nexus-data
+
+  verdaccio:
+    image: verdaccio/verdaccio:6
+    ports:
+      - "4873:4873"
+    volumes:
+      - verdaccio-data:/verdaccio/storage
+
+volumes:
+  postgres-data:
+  nexus-data:
+  verdaccio-data:

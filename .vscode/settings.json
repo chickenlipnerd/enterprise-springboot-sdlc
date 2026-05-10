@@ -1,0 +1,8 @@
+{
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.import.maven.enabled": true,
+  "maven.terminal.useJavaHome": true,
+  "files.exclude": {
+    "**/target": true
+  }
+}

@@ -1,47 +1,27 @@
-# AI-PROMPT.md
+# AI Prompt Guide for the Monorepo
 
-## Prompts to Continue Work on GitHub Web Interface
+Use prompts that match the Maven monorepo layout, Spring Boot 4 services, and VS Code-first workflow.
 
-### 1. Branch and Issue Management
-- **"Create a new branch for implementing X feature and link it to issue #123."**
-- **"Generate a list of available branches and summarize their current status."**
-- **"Close issue #123 and merge the associated feature branch into main."**
+## Build and architecture prompts
+- "Add a new shared library under `shared-libs/` and wire it into `build/bom` and `build/parent`."
+- "Create a new Spring Boot 4 service under `services/` using Java 21 and the existing monorepo conventions."
+- "Update the monorepo publishing flow so Nexus stays primary and GitHub Packages remains the fallback option."
+- "Extend the Draw.io architecture diagram in `docs/architecture/monorepo-architecture.drawio`."
 
-### 2. Pull Requests (PR)
-- **"Create a pull request for merging feature-branch into main. Include a summary of the changes."**
-- **"Review the open pull requests and list any with pending reviews."**
-- **"Comment on PR #456 requesting changes based on the following feedback: [feedback specifics]."**
+## Service prompts
+- "Add a new REST endpoint to `services/user-service` and include focused tests only for that module."
+- "Scaffold a new domain aggregate for `services/catalog-service` with controller, service, repository, model, and profile-specific configuration updates."
+- "Introduce PostgreSQL integration-test scaffolding for a service using `shared-libs/test-support`."
 
-### 3. Repository Setup and Maintenance
-- **"Add build tools to this repository that enforce code quality standards."**
-- **"Update the README.md file with the current API documentation."**
-- **"Verify the CI/CD pipeline configuration and suggest possible improvements."**
+## Shared library prompts
+- "Keep shared libraries framework-light unless service runtime integration truly requires Spring Boot APIs."
+- "Add reusable validation or persistence helpers that can remain compatible across close Spring generations where feasible."
 
+## CI/CD prompts
+- "Update the monorepo GitHub Actions workflows for Java 21, Maven wrapper usage, Docker service builds, or OpenShift deployment skeletons."
+- "Add artifact publishing guidance for Nexus first and GitHub Packages second."
 
-### 4. Environment and Docker Instructions
-- **"Provide detailed Docker commands to replicate the production build locally."**
-- **"Document how to set up and connect to the dev PostgreSQL database in the cloud."**
-- **"Explain how to switch between profiles for different environments."**
-
----
-
-## Suggested VS Code Copilot Agents/Prompts
-
-### **Development Assistance**
-- **"Write a REST controller with endpoints for CRUD operations for the User entity."**
-- **"Generate a service to handle business logic for user authentication and validation."**
-- **"Create unit tests for the UserRepository class using JUnit."**
-
-### **Environment-Specific Assistance**
-- **"Generate a Docker Compose file for running the app and database locally."**
-- **"Write a script to seed the database with test data in the local environment."**
-- **"Configure a profile for the test environment to use Testcontainers."**
-
-### **CI/CD Enhancements for GitHub Actions**
-- **"Add a step in the GitHub Actions workflow to deploy the app to OpenShift."**
-- **"Write a shell script to automate integration test setup in the pipeline."**
-
-### **Database and Hibernate Assistance**
-- **"Write a Liquibase changelog file to create the 'users' table with appropriate columns."**
-- **"Generate JPA entities for the following tables: users, roles."**
-- **"Optimize the Spring Data JPA queries for the UserRepository interface."**
+## VS Code workflow prompts
+- "Document the VS Code steps to run a specific service with the `local` profile."
+- "Recommend VS Code extensions for Java, Docker, PostgreSQL, GitHub Actions, and Draw.io work in this repository."
+- "Document how a future React/Next.js client repo would interact with these Spring Boot services while staying in a VS Code-only workflow."

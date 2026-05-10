@@ -1,0 +1,11 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: ${USER_SERVICE_DB_URL}
+    username: ${USER_SERVICE_DB_USERNAME}
+    password: ${USER_SERVICE_DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
